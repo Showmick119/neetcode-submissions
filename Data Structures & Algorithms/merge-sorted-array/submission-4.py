@@ -1,0 +1,29 @@
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        i = m - 1 # biggest in nums1
+        j = n - 1 # biggest in nums2
+        last = m + n - 1 # final spot in nums1 that we are currently trying to fill
+
+        ## just try and place all the nums2 in the correct place, and then nums1 is autosorted
+        while i >= 0 and j >= 0:
+            if nums2[j] >= nums1[i]:
+                nums1[last] = nums2[j]
+                last -= 1
+                j -= 1
+            else:
+                nums1[last] = nums1[i]
+                last -= 1
+                i -= 1
+        
+        if j >= 0:
+            while j >= 0 and last >= 0:
+                nums1[last] = nums2[j]
+                last -= 1
+                j -= 1
+
+"""
+- We add from the back, such that we don't overwrite any of the existing elements.
+"""
