@@ -1,0 +1,16 @@
+class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        from collections import deque
+        window = deque()
+        shortest = float('inf')
+        l = 0
+        runningSum = 0 # because using the sum() method would make it O(n^2) time complexity
+        for num in nums:
+            window.append(num)
+            runningSum += num
+            while runningSum >= target:
+                shortest = min(shortest, len(window))
+                window.popleft()
+                runningSum -= nums[l]
+                l += 1
+        return 0 if shortest == float('inf') else shortest
